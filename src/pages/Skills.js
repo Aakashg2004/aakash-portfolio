@@ -1,21 +1,40 @@
 import { motion } from "framer-motion";
 
 export default function Skills() {
-  const skills = ["Java", "Python", "HTML/CSS", "MS Power BI", "Excel"];
+  const skills = [
+    "Python",
+    "Java (Basics)",
+    "React",
+    "Tailwind CSS",
+    "Power BI",
+    "Excel"
+  ];
+
   return (
-    <motion.div
-      className="max-w-3xl mx-auto p-6"
+    <motion.section
+      className="px-6 py-20 max-w-4xl mx-auto"
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
     >
-      <h2 className="text-2xl font-bold mb-4">Skills</h2>
-      <ul className="grid grid-cols-2 gap-4">
-        {skills.map((skill) => (
-          <li key={skill} className="bg-white/10 p-3 rounded">{skill}</li>
+      <h2 className="text-3xl font-bold text-center text-indigo-400 mb-6">
+        Skills
+      </h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-white/90 text-center text-lg">
+        {skills.map((skill, index) => (
+          <motion.div
+            key={index}
+            className="bg-white/10 p-4 rounded-md shadow"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
+            viewport={{ once: true }}
+          >
+            {skill}
+          </motion.div>
         ))}
-      </ul>
-    </motion.div>
+      </div>
+    </motion.section>
   );
 }
