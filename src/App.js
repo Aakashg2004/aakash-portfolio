@@ -4,7 +4,7 @@ import About from "./pages/About";
 import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Certifications from "./pages/Certifications";
-import { BsList, BsX } from "react-icons/bs";
+import { BsList, BsX, BsMoonStars, BsSun } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import ParticlesBg from "./components/ParticlesBg";
 import { AnimatePresence } from "framer-motion";
@@ -28,17 +28,29 @@ function AnimatedRoutes() {
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
 
   return (
     <Router>
       <ParticlesBg />
-      <div className="relative z-10 min-h-screen bg-gradient-to-br from-indigo-900 via-black to-purple-900 text-white">
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-indigo-900 via-black to-purple-900 text-white dark:text-white dark:bg-gradient-to-br dark:from-black dark:via-slate-900 dark:to-gray-800">
         <nav className="bg-black/30 backdrop-blur-md shadow-lg sticky top-0 z-50 px-6 py-4">
           <div className="flex items-center justify-between max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold text-white">Aakash Gurunathan</h1>
-            <button onClick={() => setOpen(!open)} className="sm:hidden text-white text-2xl">
-              {open ? <BsX /> : <BsList />}
-            </button>
+            <h1 className="text-2xl font-bold">Aakash Gurunathan</h1>
+            <div className="flex items-center gap-4">
+              <button onClick={toggleTheme} className="text-white text-xl hidden sm:block">
+                {isDark ? <BsSun /> : <BsMoonStars />}
+              </button>
+              <button onClick={() => setOpen(!open)} className="sm:hidden text-white text-2xl">
+                {open ? <BsX /> : <BsList />}
+              </button>
+            </div>
             <ul className="hidden sm:flex gap-6 text-white text-sm md:text-base items-center">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About</Link></li>
@@ -71,6 +83,11 @@ export default function App() {
                 >
                   Download Resume
                 </a>
+              </li>
+              <li>
+                <button onClick={toggleTheme} className="text-left flex items-center gap-2">
+                  {isDark ? <BsSun /> : <BsMoonStars />} Theme
+                </button>
               </li>
             </ul>
           )}
